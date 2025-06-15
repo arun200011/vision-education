@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - Vision Education Overseas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <div class="max-w-3xl mx-auto py-16 px-6">
+    <h1 class="text-4xl font-bold text-center mb-10">Contact Us</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="mb-4 p-4 rounded bg-green-100 text-green-800">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <form method="POST" action="/contact" class="space-y-4">
+  <input type="text" name="name" required placeholder="Your Name" class="w-full border p-2 rounded">
+  <input type="email" name="email" required placeholder="Your Email" class="w-full border p-2 rounded">
+  <textarea name="message" required placeholder="Your Message" class="w-full border p-2 rounded"></textarea>
+
+  <!-- Google reCAPTCHA widget -->
+  <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
+
+  <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Send Message</button>
+</form>
+
+<!-- Load the reCAPTCHA script -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  </div>
+</body>
+</html>

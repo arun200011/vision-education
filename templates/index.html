@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vision Education Overseas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    #slideshow img {
+      transition: opacity 1s ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+
+  <!-- Background Slideshow -->
+  <div class="fixed top-0 left-0 w-full h-screen overflow-hidden z-0">
+    <div id="slideshow" class="absolute w-full h-full">
+      <img src="{{ url_for('static', filename='images/consult1.jpeg') }}" class="w-full h-full object-cover absolute opacity-0">
+      <img src="{{ url_for('static', filename='images/consult2.jpeg') }}" class="w-full h-full object-cover absolute opacity-0">
+      <img src="{{ url_for('static', filename='images/consult3.jpeg') }}" class="w-full h-full object-cover absolute opacity-0">
+      <img src="{{ url_for('static', filename='images/consult4.jpeg') }}" class="w-full h-full object-cover absolute opacity-0">
+      <img src="{{ url_for('static', filename='images/consult5.jpeg') }}" class="w-full h-full object-cover absolute opacity-0">
+    </div>
+  </div>
+
+  <!-- Page Content Wrapper -->
+  <div class="relative z-10">
+    <!-- Navigation -->
+<nav class="bg-white shadow px-6 py-4 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-blue-700">Vision Education Overseas</h1>
+    <ul class="flex space-x-4 text-sm items-center">
+      <li class="relative group">
+        <a href="/study-mbbs" class="hover:text-blue-600">Study MBBS</a>
+        <ul class="absolute hidden group-hover:block bg-white shadow mt-2 text-left">
+          <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Russia</a></li>
+          <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Philippines</a></li>
+          <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Georgia</a></li>
+        </ul>
+      </li>
+      <li><a href="/universities" class="hover:text-blue-600">MBBS Universities</a></li>
+      <li><a href="/study-abroad" class="hover:text-blue-600">Study Abroad</a></li>
+      <li><a href="/knowledge" class="hover:text-blue-600">Knowledge</a></li>
+      <li><a href="/contact" class="hover:text-blue-600">Contact</a></li>
+
+      <!-- Authentication Links -->
+      {% if current_user.is_authenticated %}
+        {% if current_user.role == 'admin' %}
+          <li><a href="{{ url_for('admin_dashboard') }}" class="text-green-600 hover:underline">Admin</a></li>
+        {% endif %}
+        <li><a href="{{ url_for('auth.logout') }}" class="text-red-600 hover:underline">Logout</a></li>
+      {% else %}
+        <li><a href="{{ url_for('auth.login') }}" class="text-blue-600 hover:underline">Login</a></li>
+        <li><a href="{{ url_for('auth.register') }}" class="text-blue-600 hover:underline">Register</a></li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
+
+
+    <!-- Hero Section -->
+    <section class="relative w-full h-screen flex flex-col justify-center items-center text-center text-white bg-black/50">
+      <h2 class="text-4xl font-bold mb-4">Most Trusted Study Abroad Consultants in India</h2>
+      <p class="mb-6 text-lg">Study MBBS Abroad with Experts</p>
+      <!-- Buttons or links section -->
+<div class="cta-buttons" style="margin-top: 20px;">
+
+  <!-- Know More button linking to study abroad info page -->
+  <a href="{{ url_for('study_abroad') }}" class="btn btn-primary" style="margin-right: 10px;">
+    Know More
+  </a>
+
+  <!-- WhatsApp Chat button (replace phone number with yours) -->
+  <a href="https://wa.me/918003147509" target="_blank" rel="noopener noreferrer" class="btn btn-success">
+    Chat on WhatsApp
+  </a>
+
+</div>
+
+    </section>
+
+    <!-- Overview Sections -->
+    <section class="py-16 px-6 max-w-6xl mx-auto grid md:grid-cols-3 gap-12 text-center">
+      <div>
+        <h3 class="text-xl font-bold mb-2">Who We Are</h3>
+        <p>India's leading education consultancy helping students study abroad for over a decade.</p>
+      </div>
+      <div>
+        <h3 class="text-xl font-bold mb-2">Why Study Abroad?</h3>
+        <p>Access to global education, career opportunities, and personal growth in a new environment.</p>
+      </div>
+      <div>
+        <h3 class="text-xl font-bold mb-2">Popular Countries</h3>
+        <p>Russia, Philippines, Georgia, Ukraine, and more with top medical universities.</p>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="bg-gray-100 py-16 px-6 text-center">
+      <h2 class="text-3xl font-bold mb-8">What Our Students Say</h2>
+      <div class="max-w-4xl mx-auto space-y-8">
+        <blockquote class="italic">"Thanks to Vision Education Overseas, I’m studying MBBS in Russia. The support was amazing!"<br><span class="font-semibold">– Priya Sharma</span></blockquote>
+        <blockquote class="italic">"Clear guidance, smooth admission, and great counseling sessions. Highly recommend."<br><span class="font-semibold">– Rahul Mehta</span></blockquote>
+      </div>
+    </section>
+
+    <form action="/subscribe" method="POST" class="flex mt-4">
+  <input type="email" name="email" placeholder="Your email" required class="p-2 rounded-l border">
+  <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-r">Subscribe</button>
+</form>
+
+
+    <!-- Blog Previews -->
+    <section class="py-16 px-6 max-w-6xl mx-auto">
+      <h2 class="text-3xl font-bold mb-8 text-center">Latest Blog Posts</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        {% for blog in blogs %}
+        <div class="border p-4 rounded shadow">
+          <img src="{{ blog.image }}" class="mb-4 rounded">
+          <h3 class="text-xl font-semibold">{{ blog.title }}</h3>
+          <p class="text-sm mt-2">{{ blog.excerpt }}</p>
+          <a href="/blog/{{ blog.slug }}" class="text-blue-600 text-sm mt-2 inline-block">Read more</a>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="py-16 px-6 text-center">
+      <h2 class="text-3xl font-bold mb-8">Photo & Video Gallery</h2>
+      <p>Coming soon with exciting campus visuals and student journeys!</p>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="py-16 px-6 max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-8">Contact Us</h2>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="mb-4 p-4 rounded bg-green-100 text-green-800">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      <form action="/contact" method="POST" class="space-y-6">
+        <input type="text" name="name" placeholder="Your Name" class="w-full p-3 border rounded" required>
+        <input type="email" name="email" placeholder="Your Email" class="w-full p-3 border rounded" required>
+        <textarea name="message" rows="5" placeholder="Your Message" class="w-full p-3 border rounded" required></textarea>
+        <button type="submit" class="bg-blue-700 text-white px-6 py-3 rounded">Send Message</button>
+      </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-10">
+      <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-4 gap-8 text-sm">
+        <div>
+          <h3 class="text-lg font-bold mb-2">Contact Us</h3>
+          <p>Email:  manishpanwar@167gmail.com</p>
+          <p>Phone: +91 8003147509</p>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold mb-2">Quick Links</h3>
+          <ul>
+            <li><a href="/" class="hover:underline">Home</a></li>
+            <li><a href="/study-mbbs" class="hover:underline">Study MBBS</a></li>
+            <li><a href="/contact" class="hover:underline">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold mb-2">Newsletter</h3>
+          <form action="#" method="POST" class="flex flex-col space-y-2">
+            <input type="email" name="newsletter" placeholder="Your email" class="p-2 rounded text-black">
+            <button type="submit" class="bg-blue-600 p-2 rounded text-white">Subscribe</button>
+          </form>
+        </div>
+        <div class="text-center md:text-right mt-6 md:mt-0">
+          <p>© 2025 Vision Education Overseas. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Slideshow Script -->
+  <script>
+    const slides = document.querySelectorAll('#slideshow img');
+    let index = 0;
+
+    function showSlide(i) {
+      slides.forEach((img, idx) => {
+        img.style.opacity = idx === i ? '1' : '0';
+      });
+    }
+
+    function nextSlide() {
+      index = (index + 1) % slides.length;
+      showSlide(index);
+    }
+
+    showSlide(index);
+    setInterval(nextSlide, 4000);
+  </script>
+</body>
+</html>

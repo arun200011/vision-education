@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Knowledge Hub - Vision Education Overseas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-gray-800">
+  <div class="max-w-4xl mx-auto py-16 px-6">
+    <h1 class="text-4xl font-bold mb-6">Knowledge Hub</h1>
+    <p>Watch videos, browse our gallery, and read educational blogs to stay informed and inspired.</p>
+    <a href="{{ url_for('home') }}" class="text-blue-600 hover:underline mt-6 block">← Back to Home</a>
+  </div>
+  <div class="grid gap-6 md:grid-cols-2 mt-10">
+  <img src="{{ url_for('static', filename='images/event1.jpg') }}" class="rounded shadow" alt="Event 1">
+  <img src="{{ url_for('static', filename='images/event2.jpg') }}" class="rounded shadow" alt="Event 2">
+  <iframe class="w-full aspect-video rounded shadow" src="https://www.youtube.com/embed/xyz123" allowfullscreen></iframe>
+</div>
+</body>
+</html>
+
+

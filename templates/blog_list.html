@@ -1,0 +1,24 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog - Vision Education Overseas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <div class="max-w-5xl mx-auto py-16 px-4">
+    <h1 class="text-4xl font-bold mb-8">Latest Blog Posts</h1>
+    <div class="grid gap-6 grid-cols-1 md:grid-cols-2">
+      {% for blog in blogs %}
+      <div class="bg-white rounded shadow p-6">
+        <img src="{{ blog.image }}" alt="Blog image" class="w-full h-48 object-cover rounded mb-4">
+        <h2 class="text-xl font-semibold mb-2">{{ blog.title }}</h2>
+        <p class="mb-3 text-gray-600">{{ blog.excerpt|safe }}</p>
+        <a href="{{ url_for('blog_post', slug=blog.slug) }}" class="text-blue-600 hover:underline">Read more →</a>
+      </div>
+      {% endfor %}
+    </div>
+    <a href="{{ url_for('home') }}" class="text-blue-500 hover:underline mt-10 block">← Back to Home</a>
+  </div>
+</body>
+</html>
